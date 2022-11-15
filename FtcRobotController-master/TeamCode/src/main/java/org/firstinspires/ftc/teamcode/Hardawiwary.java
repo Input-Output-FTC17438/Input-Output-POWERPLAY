@@ -9,12 +9,12 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-abstract class Hardawiwary {
+public class Hardawiwary {
     DcMotor TL, TR, BL, BR;
     DcMotor intake;
     DcMotor lift;
     double tl, tr, bl, br, r, d, x, y;
-    boolean active;
+    boolean activeMove, activeLift, activeIntake;
 
 
     ElapsedTime Timer = new ElapsedTime();
@@ -42,7 +42,7 @@ abstract class Hardawiwary {
     }
 
 
-    public void activateEncoders() {
+    public void activateEncodersMove() {
         TL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         TR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         BL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -50,12 +50,39 @@ abstract class Hardawiwary {
 
         lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-
-        active = true;
+        activeMove = true;
     }
 
 
-    public void deActivateEncoders() {
+    public void activateEncodersLift() {
+        lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        activeLift = true;
+    }
+
+
+    public void activateEncodersIntake() {
+        intake.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        activeIntake = true;
+    }
+
+
+    public void deActivateEncodersLift() {
+        lift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        activeLift = true;
+    }
+
+
+    public void deActivateEncodersIntake() {
+        intake.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        activeIntake = true;
+    }
+
+
+    public void deActivateEncodersMove() {
         TL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         TR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         BL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -64,11 +91,11 @@ abstract class Hardawiwary {
         lift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
 
-        active = false;
+        activeMove = false;
     }
 
 
-    public void move(double x, double y, double r, int t) {
+    public void move(double x, double y, double r) {
         double k = 1; // сбавь обороты
         x = x * k;
         y = y * k;
@@ -87,7 +114,7 @@ abstract class Hardawiwary {
 
 
     public void moveEnc(double x, double y, double r, int tE) {
-        telemetry.addLine(active ? "active" : "inactive");
+        telemetry.addLine(activeMove ? "activeMove" : "inactiveMove");
 
         double k = 1; // сбавь обороты
         x = x * k;
