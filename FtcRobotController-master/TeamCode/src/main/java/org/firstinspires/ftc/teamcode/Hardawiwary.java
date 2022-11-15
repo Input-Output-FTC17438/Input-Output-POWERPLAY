@@ -128,14 +128,28 @@ abstract class Hardawiwary {
     }
 
 
-    public void intakeRun(double intakeD) {
+    public void intakeRunTimer(double intakeD, int t) {
         intake.setPower(intakeD);
+        Timer.reset();
+        while (linearOpMode.opModeIsActive() && Timer.milliseconds() < t){}
+        intakeStop();
     }
 
 
     public void intakeStop() {
         intake.setPower(0);
     }
+
+
+    public void intakeRun(double intakeD){
+        intake.setPower(intakeD);
+    }
+
+
+    public void liftRun(double liftD){
+        lift.setPower(liftD);
+    }
+
 
     public void liftEnc(int tE) {
         lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -146,6 +160,7 @@ abstract class Hardawiwary {
         lift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         lift.setPower(0);
     }
+
 
     public void debugDelay() {
         Timer.reset();
