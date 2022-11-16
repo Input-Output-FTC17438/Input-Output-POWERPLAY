@@ -48,8 +48,6 @@ public class Hardawiwary {
         BL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         BR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
         activeMove = true;
     }
 
@@ -95,7 +93,7 @@ public class Hardawiwary {
     }
 
 
-    public void move(double x, double y, double r) {
+    public void move(double x, double y, double r, int t) {
         double k = 1; // сбавь обороты
         x = x * k;
         y = y * k;
@@ -110,6 +108,11 @@ public class Hardawiwary {
         TR.setPower(tr);
         BL.setPower(bl);
         BR.setPower(br);
+        if (t != 0) {
+            Timer.reset();
+            while (Timer.milliseconds() < t){}
+            stopMove();
+        }
     }
 
 
