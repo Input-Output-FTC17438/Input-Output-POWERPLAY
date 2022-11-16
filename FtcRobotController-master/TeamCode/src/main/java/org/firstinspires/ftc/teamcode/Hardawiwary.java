@@ -111,7 +111,7 @@ public class Hardawiwary {
     }
 
 
-    public void moveTimer(double x, double y, double r, int t) {
+    public void moveTimer(double x, double y, double r, int t, boolean f) {
         double k = 1; // сбавь обороты
         x = x * k;
         y = y * k;
@@ -128,12 +128,12 @@ public class Hardawiwary {
         BR.setPower(br);
 
         while (linearOpMode.opModeIsActive() && Timer.milliseconds() < t){}
-        stopMove();
+        stopMove(f);
         debugDelay();
     }
 
 
-    public void moveEnc(double x, double y, double r, int tE) {
+    public void moveEnc(double x, double y, double r, int tE, boolean f) {
         telemetry.addLine(activeMove ? "activeMove" : "inactiveMove");
 
         double k = 1; // сбавь обороты
@@ -156,18 +156,19 @@ public class Hardawiwary {
             BL.setPower(bl);
             BR.setPower(br);
         }
-        stopMove();
+        stopMove(f);
         debugDelay();
     }
 
 
     public void stopMove(boolean f) {
-        TL.setPower(-TL.getPower());
-        BL.setPower(-BL.getPower());
-        TR.setPower(-TR.getPower());
-        BR.setPower(-BR.getPower());
-        Timer.reset();
-        while (Timer.milliseconds() < 10) {
+        if (f) {
+            TL.setPower(-TL.getPower());
+            BL.setPower(-BL.getPower());
+            TR.setPower(-TR.getPower());
+            BR.setPower(-BR.getPower());
+            Timer.reset();
+            while (Timer.milliseconds() < 10) {}
         }
         TL.setPower(0);
         BL.setPower(0);
