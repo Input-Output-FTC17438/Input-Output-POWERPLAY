@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 @TeleOp(name = "Autonomous POWERPLAY Lucky RIGHT")
 
-public class AutonomousPowerplayLuckyRight extends LinearOpMode {
+public class AutoPPyLuckyRight extends LinearOpMode {
     Hardawiwary hw = new Hardawiwary();
     @Override
     public void runOpMode(){

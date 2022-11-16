@@ -161,7 +161,7 @@ public class Hardawiwary {
     }
 
 
-    public void stopMove() {
+    public void stopMove(boolean f) {
         TL.setPower(-TL.getPower());
         BL.setPower(-BL.getPower());
         TR.setPower(-TR.getPower());

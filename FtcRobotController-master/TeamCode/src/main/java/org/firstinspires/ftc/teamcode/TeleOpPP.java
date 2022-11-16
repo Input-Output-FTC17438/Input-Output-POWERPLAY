@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 @TeleOp(name = "TeleOp POWERPLAY")
 
-public class TeleOpPowerplay extends LinearOpMode {
+public class TeleOpPP extends LinearOpMode {
     Hardawiwary hw = new Hardawiwary();
     @Override
     public void runOpMode(){
