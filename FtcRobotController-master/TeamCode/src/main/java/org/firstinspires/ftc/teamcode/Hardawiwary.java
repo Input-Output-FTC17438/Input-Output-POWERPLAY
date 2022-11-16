@@ -7,14 +7,18 @@ import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.tel
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 public class Hardawiwary {
     DcMotor TL, TR, BL, BR;
     DcMotor intake;
     DcMotor lift;
+    Servo intakeSL, intakeSR;
     double tl, tr, bl, br, r, d, x, y;
     boolean activeMove, activeLift, activeIntake;
+
+    double servoPos = 0.0;
 
 
     ElapsedTime Timer = new ElapsedTime();
@@ -29,6 +33,12 @@ public class Hardawiwary {
         intake = hardwareMap.dcMotor.get("intake");
 
         lift = hardwareMap.dcMotor.get("lift");
+
+        intakeSL = hardwareMap.servo.get("ssl");
+        intakeSR = hardwareMap.servo.get("ssr");
+
+        intakeSL.setPosition(servoPos);
+        intakeSR.setPosition(servoPos);
 
 
         TL.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -85,8 +95,6 @@ public class Hardawiwary {
         TR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         BL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         BR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-
-        lift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
 
         activeMove = false;
@@ -224,6 +232,11 @@ public class Hardawiwary {
         lift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         lift.setPower(0);
         debugDelay();
+    }
+
+    public void servoRun(double servoPos){
+        intakeSL.setPosition(servoPos);
+        intakeSR.setPosition(servoPos);
     }
 
 
