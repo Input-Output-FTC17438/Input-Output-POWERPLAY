@@ -93,7 +93,7 @@ public class Hardawiwary {
     }
 
 
-    public void move(double x, double y, double r, int t) {
+    public void move(double x, double y, double r) {
         double k = 1; // сбавь обороты
         x = x * k;
         y = y * k;
@@ -108,11 +108,28 @@ public class Hardawiwary {
         TR.setPower(tr);
         BL.setPower(bl);
         BR.setPower(br);
-        if (t != 0) {
-            Timer.reset();
-            while (Timer.milliseconds() < t){}
-            stopMove();
-        }
+    }
+
+
+    public void moveTimer(double x, double y, double r, int t) {
+        double k = 1; // сбавь обороты
+        x = x * k;
+        y = y * k;
+        r = r * k;
+
+        tl = (x + y + r);
+        tr = (-x + y - r);
+        bl = (-x + y + r);
+        br = (x + y - r);
+
+        TL.setPower(tl);
+        TR.setPower(tr);
+        BL.setPower(bl);
+        BR.setPower(br);
+
+        while (linearOpMode.opModeIsActive() && Timer.milliseconds() < t){}
+        stopMove();
+        debugDelay();
     }
 
 
@@ -140,6 +157,7 @@ public class Hardawiwary {
             BR.setPower(br);
         }
         stopMove();
+        debugDelay();
     }
 
 
@@ -163,6 +181,7 @@ public class Hardawiwary {
         Timer.reset();
         while (linearOpMode.opModeIsActive() && Timer.milliseconds() < t){}
         intakeStop();
+        debugDelay();
     }
 
 
@@ -181,6 +200,20 @@ public class Hardawiwary {
     }
 
 
+    public void liftStop(){
+        lift.setPower(0);
+    }
+
+
+    public void liftRunTimer(double liftD, int t){
+        lift.setPower(liftD);
+        Timer.reset();
+        while (linearOpMode.opModeIsActive() && Timer.milliseconds() < t){}
+        liftStop();
+        debugDelay();
+    }
+
+
     public void liftEnc(int tE) {
         lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         lift.setTargetPosition(tE);
@@ -189,11 +222,12 @@ public class Hardawiwary {
         while ((linearOpMode.opModeIsActive()) && (lift.isBusy())){}
         lift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         lift.setPower(0);
+        debugDelay();
     }
 
 
     public void debugDelay() {
         Timer.reset();
-        while (Timer.milliseconds() < 100){}
+        while (Timer.milliseconds() < 10){}
     }
 }
