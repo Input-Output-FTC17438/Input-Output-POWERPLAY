@@ -11,10 +11,10 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 public class Hardawiwary {
-    DcMotor TL, TR, BL, BR;
-    DcMotor intake;
-    DcMotor lift;
-    Servo intakeSL, intakeSR;
+    public DcMotor TL, TR, BL, BR;
+    public DcMotor intake;
+    public DcMotor lift;
+    public Servo intakeSL, intakeSR;
     double tl, tr, bl, br, r, d, x, y;
     boolean activeMove, activeLift, activeIntake;
 
