@@ -1,15 +1,16 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-
+@Disabled
 @Autonomous(name = "AutoPP Lucky RIGHT")
 
 public class AutoPPyLuckyRight extends LinearOpMode {
-    Hardawiwary hw = new Hardawiwary();
     @Override
     public void runOpMode(){
-        hw.init();
+        Hardawiwary hw = new Hardawiwary(hardwareMap);
+
         if (opModeIsActive()) {
             hw.servoRun(0);
         }

@@ -7,6 +7,7 @@ import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.tel
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
@@ -18,18 +19,19 @@ public class Hardawiwary {
     double tl, tr, bl, br, r, d, x, y;
     boolean activeMove, activeLift, activeIntake;
 
-    private LinearOpMode opMode;
+    //public LinearOpMode opMode;
 
     double servoPos = 0.0;
 
-
+    HardwareMap hwMap = null;
     ElapsedTime Timer = new ElapsedTime();
 
 
-    public Hardawiwary(LinearOpMode _opMode) { //конструктор - как тебе конструировать
-        opMode = _opMode;
+    public Hardawiwary(HardwareMap hardwareMap) { //конструктор - как тебе
+        // конструировать
+        hwMap = hardwareMap;
 
-        TL = hardwareMap.dcMotor.get("tl");
+        TL = hwMap.dcMotor.get("tl");
         TR = hardwareMap.dcMotor.get("tr");
         BL = hardwareMap.dcMotor.get("bl");
         BR = hardwareMap.dcMotor.get("br");
