@@ -6,13 +6,14 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 @TeleOp(name = "TeleOp POWERPLAY")
 
 public class TeleOpPP extends LinearOpMode {
-    Hardawiwary hw = new Hardawiwary();
     @Override
     public void runOpMode(){
-        hw.init();
+        Hardawiwary hw = new Hardawiwary(this);//конструктор конструировать
+
         hw.deActivateEncodersMove();
         hw.deActivateEncodersLift();
         hw.deActivateEncodersIntake();
+
         waitForStart();
         while (opModeIsActive()){
             hw.move(gamepad1.left_stick_x, gamepad1.left_stick_y,

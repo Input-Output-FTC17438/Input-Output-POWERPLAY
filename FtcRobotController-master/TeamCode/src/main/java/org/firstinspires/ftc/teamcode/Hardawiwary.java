@@ -18,13 +18,17 @@ public class Hardawiwary {
     double tl, tr, bl, br, r, d, x, y;
     boolean activeMove, activeLift, activeIntake;
 
+    private LinearOpMode opMode;
+
     double servoPos = 0.0;
 
 
     ElapsedTime Timer = new ElapsedTime();
 
 
-    public void init() {
+    public Hardawiwary(LinearOpMode _opMode) { //конструктор - как тебе конструировать
+        opMode = _opMode;
+
         TL = hardwareMap.dcMotor.get("tl");
         TR = hardwareMap.dcMotor.get("tr");
         BL = hardwareMap.dcMotor.get("bl");
@@ -156,9 +160,9 @@ public class Hardawiwary {
 
         int stpos = TL.getCurrentPosition();
         while (linearOpMode.opModeIsActive() && ((Math.abs(Math.abs(TL.getCurrentPosition()) - Math.abs(stpos)) < tE)
-                                             || (Math.abs(Math.abs(TL.getCurrentPosition()) - Math.abs(stpos)) < tE)
-                                             || (Math.abs(Math.abs(TL.getCurrentPosition()) - Math.abs(stpos)) < tE)
-                                             || (Math.abs(Math.abs(TL.getCurrentPosition()) - Math.abs(stpos)) < tE))) {
+                || (Math.abs(Math.abs(TL.getCurrentPosition()) - Math.abs(stpos)) < tE)
+                || (Math.abs(Math.abs(TL.getCurrentPosition()) - Math.abs(stpos)) < tE)
+                || (Math.abs(Math.abs(TL.getCurrentPosition()) - Math.abs(stpos)) < tE))) {
             TL.setPower(tl);
             TR.setPower(tr);
             BL.setPower(bl);
