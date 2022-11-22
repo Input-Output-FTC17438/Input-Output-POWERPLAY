@@ -4,6 +4,8 @@ import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.har
 import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.linearOpMode;
 import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.telemetry;
 
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
@@ -11,9 +13,13 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-public class Hardawiwary {
+import org.firstinspires.ftc.robotcore.external.Telemetry;
+
+@Autonomous(name = "HW")
+@Disabled
+public class Hardawiwary extends LinearOpMode {
     public DcMotor TL, TR, BL, BR;
-    public DcMotor intake;
+    //public DcMotor intake;
     public DcMotor lift;
     public Servo intakeSL, intakeSR;
     double tl, tr, bl, br, r, d, x, y;
@@ -26,7 +32,6 @@ public class Hardawiwary {
     HardwareMap hwMap = null;
     ElapsedTime Timer = new ElapsedTime();
 
-
     public Hardawiwary(HardwareMap hardwareMap) { //конструктор - как тебе
         // конструировать
         hwMap = hardwareMap;
@@ -36,7 +41,7 @@ public class Hardawiwary {
         BL = hardwareMap.dcMotor.get("bl");
         BR = hardwareMap.dcMotor.get("br");
 
-        intake = hardwareMap.dcMotor.get("intake");
+        //intake = hardwareMap.dcMotor.get("intake");
 
         lift = hardwareMap.dcMotor.get("lift");
 
@@ -44,7 +49,7 @@ public class Hardawiwary {
         intakeSR = hardwareMap.servo.get("ssr");
 
         intakeSL.setPosition(servoPos);
-        intakeSR.setPosition(servoPos);
+        intakeSR.setPosition(1.0-servoPos);
 
 
         TL.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -52,9 +57,9 @@ public class Hardawiwary {
         BL.setDirection(DcMotorSimple.Direction.REVERSE);
         BR.setDirection(DcMotorSimple.Direction.FORWARD);
 
-        intake.setDirection(DcMotorSimple.Direction.FORWARD);
+        //intake.setDirection(DcMotorSimple.Direction.FORWARD);
 
-        lift.setDirection(DcMotorSimple.Direction.FORWARD);
+        lift.setDirection(DcMotorSimple.Direction.REVERSE);
     }
 
 
@@ -76,7 +81,7 @@ public class Hardawiwary {
 
 
     public void activateEncodersIntake() {
-        intake.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        //intake.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         activeIntake = true;
     }
@@ -90,7 +95,7 @@ public class Hardawiwary {
 
 
     public void deActivateEncodersIntake() {
-        intake.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        //intake.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         activeIntake = true;
     }
@@ -107,11 +112,10 @@ public class Hardawiwary {
     }
 
 
-    public void move(double x, double y, double r) {
-        double k = 1; // сбавь обороты
+    public void move(double x, double y, double r, double k) {
         x = x * k;
         y = y * k;
-        r = r * k;
+        r = r * 0.3;
 
         tl = (x + y + r);
         tr = (-x + y - r);
@@ -122,26 +126,29 @@ public class Hardawiwary {
         TR.setPower(tr);
         BL.setPower(bl);
         BR.setPower(br);
+
+
+
     }
 
 
     public void moveTimer(double x, double y, double r, int t, boolean f) {
-        double k = 1; // сбавь обороты
+        double k = 0.5; // сбавь обороты
         x = x * k;
         y = y * k;
-        r = r * k;
+        r = r * 0.2;
 
-        tl = (x + y + r);
-        tr = (-x + y - r);
-        bl = (-x + y + r);
-        br = (x + y - r);
+        tl = (x + y - r);
+        tr = (-x + y + r);
+        bl = (-x + y - r);
+        br = (x + y + r);
 
         TL.setPower(tl);
         TR.setPower(tr);
         BL.setPower(bl);
         BR.setPower(br);
 
-        while (linearOpMode.opModeIsActive() && Timer.milliseconds() < t){}
+        while (Timer.milliseconds() < t){}
         stopMove(f);
         debugDelay();
     }
@@ -153,12 +160,12 @@ public class Hardawiwary {
         double k = 1; // сбавь обороты
         x = x * k;
         y = y * k;
-        r = r * k;
+        r = r * 0.2;
 
-        tl = (x + y + r);
-        tr = (-x + y - r);
-        bl = (-x + y + r);
-        br = (x + y - r);
+        tl = (x + y - r);
+        tr = (-x + y + r);
+        bl = (-x + y - r);
+        br = (x + y + r);
 
         int stpos = TL.getCurrentPosition();
         while (linearOpMode.opModeIsActive() && ((Math.abs(Math.abs(TL.getCurrentPosition()) - Math.abs(stpos)) < tE)
@@ -192,21 +199,21 @@ public class Hardawiwary {
 
 
     public void intakeRunTimer(double intakeD, int t) {
-        intake.setPower(intakeD);
+        //intake.setPower(intakeD);
         Timer.reset();
         while (linearOpMode.opModeIsActive() && Timer.milliseconds() < t){}
-        intakeStop();
+        //intakeStop();
         debugDelay();
     }
 
 
     public void intakeStop() {
-        intake.setPower(0);
+        //intake.setPower(0);
     }
 
 
     public void intakeRun(double intakeD){
-        intake.setPower(intakeD);
+        //intake.setPower(intakeD);
     }
 
 
@@ -242,12 +249,16 @@ public class Hardawiwary {
 
     public void servoRun(double servoPos){
         intakeSL.setPosition(servoPos);
-        intakeSR.setPosition(servoPos);
+        intakeSR.setPosition(1.0-servoPos);
     }
 
 
     public void debugDelay() {
         Timer.reset();
         while (Timer.milliseconds() < 10){}
+    }
+    @Override
+    public void runOpMode() {
+
     }
 }

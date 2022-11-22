@@ -11,6 +11,7 @@ public class AutoPPyLuckyRight extends LinearOpMode {
     public void runOpMode(){
         Hardawiwary hw = new Hardawiwary(hardwareMap);
 
+        waitForStart();
         if (opModeIsActive()) {
             hw.servoRun(0);
         }
