@@ -48,14 +48,12 @@ public class Hardawiwary extends LinearOpMode {
         intakeSL = hardwareMap.servo.get("ssl");
         intakeSR = hardwareMap.servo.get("ssr");
 
-        intakeSL.setPosition(servoPos);
-        intakeSR.setPosition(1.0-servoPos);
 
 
-        TL.setDirection(DcMotorSimple.Direction.REVERSE);
-        TR.setDirection(DcMotorSimple.Direction.FORWARD);
-        BL.setDirection(DcMotorSimple.Direction.REVERSE);
-        BR.setDirection(DcMotorSimple.Direction.FORWARD);
+        TL.setDirection(DcMotorSimple.Direction.FORWARD);
+        TR.setDirection(DcMotorSimple.Direction.REVERSE);
+        BL.setDirection(DcMotorSimple.Direction.FORWARD);
+        BR.setDirection(DcMotorSimple.Direction.REVERSE);
 
         //intake.setDirection(DcMotorSimple.Direction.FORWARD);
 

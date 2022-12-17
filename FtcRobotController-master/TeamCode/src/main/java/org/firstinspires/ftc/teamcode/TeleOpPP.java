@@ -16,7 +16,8 @@ public class TeleOpPP extends LinearOpMode {
         hw.deActivateEncodersMove();
         hw.deActivateEncodersLift();
         hw.deActivateEncodersIntake();
-
+telemetry.addLine("update");
+telemetry.update();
         waitForStart();
         while (opModeIsActive()){
             //
@@ -36,16 +37,16 @@ public class TeleOpPP extends LinearOpMode {
 
 
             if (gamepad2.dpad_up){
-                hw.servoRun(0.0);
+                hw.servoRun(0.2);
             }
             if (gamepad2.dpad_right){
-                hw.servoRun(0.3);
+                hw.servoRun(0.6);
             }
             if (gamepad2.dpad_down){
                 hw.servoRun(0.7);
             }
             if (gamepad2.dpad_left){
-                hw.servoRun(1);
+                hw.servoRun(0.8);
             }
         }
     }

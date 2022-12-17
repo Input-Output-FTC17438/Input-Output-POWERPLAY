@@ -37,8 +37,7 @@ public class AutoPPLjLuckyRight extends LinearOpMode {
         intakeSL = hardwareMap.servo.get("ssl");
         intakeSR = hardwareMap.servo.get("ssr");
 
-        intakeSL.setPosition(servoPos);
-        intakeSR.setPosition(1.0-servoPos);
+
 
         Lift = hardwareMap.dcMotor.get("lift");
 
@@ -53,6 +52,7 @@ public class AutoPPLjLuckyRight extends LinearOpMode {
 
         // Send telemetry message to signify robot waiting;
         telemetry.addLine("Робот готов, хуярь (кого)!!!!!");
+        telemetry.addLine("Здесь был дед, ща бы Мороши");
         telemetry.update();
 
         waitForStart();
